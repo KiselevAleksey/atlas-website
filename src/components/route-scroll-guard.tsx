@@ -49,6 +49,19 @@ export function RouteScrollGuard() {
   const previousPathname = useRef<string | null>(null);
 
   useEffect(() => {
+    if (typeof window === "undefined" || !("scrollRestoration" in window.history)) {
+      return;
+    }
+
+    const previous = window.history.scrollRestoration;
+    window.history.scrollRestoration = "manual";
+
+    return () => {
+      window.history.scrollRestoration = previous;
+    };
+  }, []);
+
+  useEffect(() => {
     const currentHash = window.location.hash;
     const pathChanged = previousPathname.current !== null && previousPathname.current !== pathname;
     const hasFaqHash = isFaqAnchor(currentHash);
