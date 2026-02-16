@@ -39,29 +39,6 @@ export default function Home() {
       <section>
         <div className="flex items-center justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#4a6b8f]">Visual Overview</p>
-            <h2 className="mt-2 font-display text-3xl font-semibold text-[#10243d]">Operations in action</h2>
-          </div>
-          <Link
-            href="/network"
-            className="rounded-full border border-[#bdd4f5] bg-white px-4 py-2 text-sm font-semibold text-[#0b6cff] hover:bg-[#eef6ff]"
-          >
-            View Distribution Network
-          </Link>
-        </div>
-
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
-          {featuredGallery.map((asset) => (
-            <div key={asset.src} className="relative h-56 overflow-hidden rounded-3xl border border-black/10 shadow-[0_12px_30px_rgba(16,36,61,0.1)]">
-              <Image src={asset.src} alt={asset.alt} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section>
-        <div className="flex items-center justify-between gap-4">
-          <div>
             <h2 className="font-display text-3xl font-semibold text-[#10243d]">Industry Programs</h2>
             <p className="mt-2 text-[#355573]">Purpose-built buying models by operating segment.</p>
           </div>
