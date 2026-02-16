@@ -72,6 +72,7 @@ export function WidgetOutcomeTracker() {
       fetch(`${normalizeBaseUrl(defaultWidgetApiBaseUrl)}/api/widget/events`, {
         method: "POST",
         mode: "cors",
+        credentials: "omit",
         keepalive: true,
         headers: {
           "Content-Type": "application/json",
