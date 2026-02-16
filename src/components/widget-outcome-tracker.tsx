@@ -8,6 +8,44 @@ import { DEFAULT_WIDGET_API_BASE_URL, normalizeBaseUrl } from "@/lib/runtime-def
 const TRACK_DELAY_MS = 900;
 const defaultWidgetApiBaseUrl =
   process.env.NEXT_PUBLIC_WIDGET_API_BASE_URL ?? DEFAULT_WIDGET_API_BASE_URL;
+const widgetTrackingParams = [
+  "ws_session",
+  "ws_tenant",
+  "ws_client",
+  "ws_query",
+  "ws_target",
+  "ws_product",
+];
+
+function cleanupWidgetTrackingUrl(targetId?: string): void {
+  try {
+    const url = new URL(window.location.href);
+    let changed = false;
+
+    for (const key of widgetTrackingParams) {
+      if (!url.searchParams.has(key)) {
+        continue;
+      }
+
+      url.searchParams.delete(key);
+      changed = true;
+    }
+
+    if (url.hash && targetId && (url.hash === `#${targetId}` || url.hash.startsWith("#faq-"))) {
+      url.hash = "";
+      changed = true;
+    }
+
+    if (!changed) {
+      return;
+    }
+
+    const nextUrl = `${url.pathname}${url.search}${url.hash}`;
+    window.history.replaceState(window.history.state, "", nextUrl);
+  } catch {
+    // Ignore URL parsing issues in older/embedded browser contexts.
+  }
+}
 
 export function WidgetOutcomeTracker() {
   const pathname = usePathname();
@@ -26,6 +64,7 @@ export function WidgetOutcomeTracker() {
     const dedupeKey = `atlas_outcome_${sessionId}_${targetId}_${pathname}`;
 
     if (window.sessionStorage.getItem(dedupeKey)) {
+      cleanupWidgetTrackingUrl(targetId);
       return;
     }
 
@@ -58,6 +97,7 @@ export function WidgetOutcomeTracker() {
       }).catch(() => undefined);
 
       window.sessionStorage.setItem(dedupeKey, "1");
+      cleanupWidgetTrackingUrl(targetId);
     }, TRACK_DELAY_MS);
 
     return () => {
