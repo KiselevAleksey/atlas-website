@@ -23,8 +23,18 @@ body {
   padding: 0;
 }
 
+html {
+  scroll-padding-top: 8rem;
+}
+
 body {
   min-height: 100vh;
+  overflow-y: auto !important;
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  width: auto !important;
   background: linear-gradient(140deg, #f7faf5 0%, #ecf5ff 44%, #f2fff4 100%);
   color: var(--ink-deep);
   font-family: var(--font-body);

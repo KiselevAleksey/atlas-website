@@ -51,6 +51,10 @@ export function RouteScrollGuard() {
   useEffect(() => {
     const currentHash = window.location.hash;
     const pathChanged = previousPathname.current !== null && previousPathname.current !== pathname;
+    const hasFaqHash = isFaqAnchor(currentHash);
+    const faqTarget = hasFaqHash
+      ? document.querySelector<HTMLElement>(normalizeHash(currentHash))
+      : null;
     previousPathname.current = pathname;
     const cleanupTasks: Array<() => void> = [];
 
@@ -81,7 +85,7 @@ export function RouteScrollGuard() {
     cleanupTasks.push(() => window.removeEventListener("pageshow", onPageShow));
     cleanupTasks.push(() => document.removeEventListener("visibilitychange", onVisibilityChange));
 
-    if (pathChanged && !isFaqAnchor(currentHash)) {
+    if (pathChanged && !faqTarget) {
       for (const delay of FORCE_TOP_TIMINGS_MS) {
         const timer = window.setTimeout(() => {
           unlockViewport();
@@ -90,10 +94,18 @@ export function RouteScrollGuard() {
 
         cleanupTasks.push(() => window.clearTimeout(timer));
       }
-    } else if (isFaqAnchor(currentHash)) {
+    } else if (faqTarget) {
       const timer = window.setTimeout(() => {
         unlockViewport();
         scrollToFaqAnchor(currentHash);
+      }, 0);
+
+      cleanupTasks.push(() => window.clearTimeout(timer));
+    } else if (!hasFaqHash) {
+      // On same-path query-only navigations, keep normal top behavior when no hash target is present.
+      const timer = window.setTimeout(() => {
+        unlockViewport();
+        scrollToTopNow();
       }, 0);
 
       cleanupTasks.push(() => window.clearTimeout(timer));

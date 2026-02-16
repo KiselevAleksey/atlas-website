@@ -39,8 +39,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="relative min-h-screen overflow-hidden">
-          <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="relative min-h-screen">
+          <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
             <div className="absolute left-[-10%] top-[-8%] h-96 w-96 rounded-full bg-[#7fd4ff]/30 blur-3xl" />
             <div className="absolute bottom-[-10%] right-[-8%] h-[30rem] w-[30rem] rounded-full bg-[#7effb4]/25 blur-3xl" />
           </div>
