@@ -44,8 +44,12 @@ export default function AboutPage() {
       <section className="rounded-[2rem] border border-black/10 bg-white/90 p-8 shadow-[0_18px_40px_rgba(16,36,61,0.08)]">
         <h2 className="font-display text-3xl font-semibold text-[#10243d]">Frequently Asked Questions</h2>
         <div className="mt-6 space-y-4">
-          {faqItems.map((item) => (
-            <article key={item.question} className="rounded-2xl border border-[#d5e4f8] bg-[#f6faff] p-4">
+          {faqItems.map((item, index) => (
+            <article
+              key={item.question}
+              id={`faq-${index + 1}`}
+              className="scroll-mt-28 rounded-2xl border border-[#d5e4f8] bg-[#f6faff] p-4"
+            >
               <h3 className="font-semibold text-[#10243d]">{item.question}</h3>
               <p className="mt-2 text-sm leading-6 text-[#365273]">{item.answer}</p>
             </article>
