@@ -3,6 +3,7 @@ import { Suspense } from "react";
 
 import { DEFAULT_ATLAS_SITE_URL } from "@/lib/runtime-defaults";
 import "./globals.css";
+import { RouteScrollGuard } from "@/components/route-scroll-guard";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { WidgetOutcomeTracker } from "@/components/widget-outcome-tracker";
@@ -45,6 +46,9 @@ export default function RootLayout({
           </div>
 
           <SiteHeader />
+          <Suspense fallback={null}>
+            <RouteScrollGuard />
+          </Suspense>
           <Suspense fallback={null}>
             <WidgetOutcomeTracker />
           </Suspense>
