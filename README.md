@@ -14,9 +14,17 @@ npm run dev
 
 App runs at [http://localhost:3000](http://localhost:3000).
 
-## Required environment variables
+## Environment variables (optional overrides)
 
-Copy `.env.example` to `.env.local` and set:
+The app now has built-in defaults in code:
+
+- `NEXT_PUBLIC_WIDGET_API_BASE_URL=https://search-bar-api-project-phi.vercel.app`
+- `NEXT_PUBLIC_WIDGET_SCRIPT_URL=https://search-bar-api-project-phi.vercel.app/widgets/atlas-search-widget.js`
+- `NEXT_PUBLIC_WIDGET_CLIENT_ID=atlas-default`
+- `NEXT_PUBLIC_WIDGET_DESTINATION_BASE_URL=https://atlas-website.vercel.app`
+- `NEXT_PUBLIC_SITE_URL=https://atlas-website.vercel.app`
+
+You can still copy `.env.example` to `.env.local` and override any of these values when needed:
 
 - `NEXT_PUBLIC_WIDGET_API_BASE_URL` (widget service base URL)
 - `NEXT_PUBLIC_WIDGET_SCRIPT_URL` (widget script URL, for example `/widgets/atlas-search-widget.js` on the widget service)

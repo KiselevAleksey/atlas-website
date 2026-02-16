@@ -3,13 +3,11 @@
 import { useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
+import { DEFAULT_WIDGET_API_BASE_URL, normalizeBaseUrl } from "@/lib/runtime-defaults";
+
 const TRACK_DELAY_MS = 900;
 const defaultWidgetApiBaseUrl =
-  process.env.NEXT_PUBLIC_WIDGET_API_BASE_URL ?? "https://search-bar-api-project.vercel.app";
-
-function normalizeBaseUrl(value: string): string {
-  return value.replace(/\/+$/, "");
-}
+  process.env.NEXT_PUBLIC_WIDGET_API_BASE_URL ?? DEFAULT_WIDGET_API_BASE_URL;
 
 export function WidgetOutcomeTracker() {
   const pathname = usePathname();

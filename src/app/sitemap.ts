@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import { catalogProducts } from "@/lib/catalog";
+import { DEFAULT_ATLAS_SITE_URL } from "@/lib/runtime-defaults";
 import { brochures, caseStudies, industryPrograms, insights, solutionPillars } from "@/lib/site-content";
 
 const staticRoutes = [
@@ -22,7 +23,7 @@ const staticRoutes = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_ATLAS_SITE_URL;
 
   const pages: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
     url: `${siteUrl}${route}`,

@@ -3,6 +3,14 @@
 import { useCallback, useEffect, useRef } from "react";
 import Script from "next/script";
 
+import {
+  DEFAULT_WIDGET_API_BASE_URL,
+  DEFAULT_WIDGET_CLIENT_ID,
+  DEFAULT_WIDGET_DESTINATION_BASE_URL,
+  DEFAULT_WIDGET_SCRIPT_URL,
+  normalizeBaseUrl,
+} from "@/lib/runtime-defaults";
+
 type WidgetMountOptions = {
   container: HTMLElement;
   tenantId?: string;
@@ -40,21 +48,17 @@ declare global {
   }
 }
 
-function normalizeBaseUrl(value: string): string {
-  return value.replace(/\/+$/, "");
-}
-
 const defaultApiBaseUrl = normalizeBaseUrl(
-  process.env.NEXT_PUBLIC_WIDGET_API_BASE_URL ??
-    "https://search-bar-api-project.vercel.app",
+  process.env.NEXT_PUBLIC_WIDGET_API_BASE_URL ?? DEFAULT_WIDGET_API_BASE_URL,
 );
 const defaultDestinationBaseUrl =
   process.env.NEXT_PUBLIC_WIDGET_DESTINATION_BASE_URL ??
-  process.env.NEXT_PUBLIC_SITE_URL;
-const defaultClientId = process.env.NEXT_PUBLIC_WIDGET_CLIENT_ID;
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  DEFAULT_WIDGET_DESTINATION_BASE_URL;
+const defaultClientId = process.env.NEXT_PUBLIC_WIDGET_CLIENT_ID ?? DEFAULT_WIDGET_CLIENT_ID;
 const defaultWidgetScriptUrl =
   process.env.NEXT_PUBLIC_WIDGET_SCRIPT_URL ??
-  `${defaultApiBaseUrl}/widgets/atlas-search-widget.js`;
+  DEFAULT_WIDGET_SCRIPT_URL;
 
 export function AiSearchWidgetHost({
   initialQuery,

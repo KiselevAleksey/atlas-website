@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
+import { DEFAULT_ATLAS_SITE_URL } from "@/lib/runtime-defaults";
 import "./globals.css";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { WidgetOutcomeTracker } from "@/components/widget-outcome-tracker";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("http://localhost:3000"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_ATLAS_SITE_URL),
   title: {
     default: "Atlas Wholesale Foods | B2B Catalog Platform",
     template: "%s | Atlas Wholesale Foods",
